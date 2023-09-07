@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+/* logo */
+
+.logo {
+    width: 128px;
+    height: 128px;
+}
+
+/* container e wrapper */
+
+.container, .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper {
+    min-height: 90vh;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+/* title */
+
+.title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+}
+
+.text {
+    font-size: 16px;
+}
