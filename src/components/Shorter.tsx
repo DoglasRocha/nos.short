@@ -18,6 +18,7 @@ export function Shorter({ stateSetter }: Props) {
           className="input-field"
           placeholder="Insira um link para encurtar..."
           onChange={(e) => setUserInput(e.target.value)}
+          disabled={buttonPressed}
         />
         <button
           className="link-button"
@@ -25,6 +26,7 @@ export function Shorter({ stateSetter }: Props) {
           onClick={async () => {
             setButtonPressed(true);
             handleLinkSubmission(userInput);
+            setTimeout(() => {}, 250);
             stateSetter("viewLink");
           }}
         >
