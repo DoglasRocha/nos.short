@@ -1,13 +1,14 @@
 import axios from "axios";
 
-interface APIResponse {
+export interface HistoryObject {
   url: string;
   key: string;
-  ttl: string;
-  "link+url": string;
+  ttl: number;
+  link_url: string;
+  date: number;
 }
 
-export const putInHistory = (link: APIResponse) => {
+export const putInHistory = (link: HistoryObject) => {
   let history = JSON.parse(localStorage.getItem("links"));
   if (history === null) history = [];
   history.push(link);
@@ -23,7 +24,12 @@ export const clearLinkHistory = () => {
 };
 
 export const getLinksFromHistory = () => {
-  return JSON.parse(localStorage.getItem("links"));
+  let links = JSON.parse(localStorage.getItem("links"));
+  links = links.filter(
+    (link) => link.ttl - (Date.now() - link.date) / 1000 < link.ttl
+  );
+  localStorage.setItem("links", JSON.stringify(links));
+  return links;
 };
 
 export const handleLinkSubmission = async (url: string) => {
@@ -33,6 +39,8 @@ export const handleLinkSubmission = async (url: string) => {
   );
 
   const result = await request.data;
+  result.date = Date.now();
+  result.ttl = parseInt(result.ttl);
   putInHistory(result);
 
   localStorage.setItem("lastLink", JSON.stringify(result));
